@@ -1,15 +1,16 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "app1.fullname" . }}
+  creationTimestamp: null
   labels:
-    {{- include "app1.labels" . | nindent 4 }}
+    app: my-nginx
+  name: my-nginx
 spec:
-  type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
-      protocol: TCP
-      name: http
+  - port: 80
+    protocol: TCP
+    targetPort: 80
   selector:
-    {{- include "app1.selectorLabels" . | nindent 4 }}
+    app: my-nginx
+status:
+  loadBalancer: {}
